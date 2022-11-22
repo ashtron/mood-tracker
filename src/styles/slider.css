@@ -1,0 +1,26 @@
+.card {
+  display: inline-block;
+  padding: 10px;
+  background-color: #f8f8ff;
+}
+
+.container {
+  padding-top: 17%;
+  display: flex;
+  justify-content: center;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  height: 100vh;
+  background-color: #282A3A;
+}
+
+button {
+  margin: 0 auto;
+  margin-top: 7px;
+}
