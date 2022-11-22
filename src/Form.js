@@ -1,10 +1,11 @@
 import { useState } from "react"
 import 'bulma/css/bulma.min.css';
-import './styles/slider.css'
+import './styles/slider.css';
 
 export default function Form() {
   const [sliderValue, setSliderValue] = useState(50);
   const [noteInputValue, setNoteInputValue] = useState("");
+  const [submitButtonText, setSubmitButtonText] = useState("Save Mood");
 
   function handleSliderChange(event) {
     setSliderValue(event.target.value);
@@ -21,17 +22,15 @@ export default function Form() {
       date: (new Date()).toISOString()
     }
     
-    console.log({ fields: data })
-
     await fetch("https://api.airtable.com/v0/appx2X79lC25UqVrT/moods", {
       method: "POST",
       body: JSON.stringify({fields: data}),
       headers: {
-        "Authorization": "Bearer {API_KEY}",
+        "Authorization": `Bearer API_KEY`,
         "Content-Type": "application/json"
       }
     })
-      .then(res => console.log(res))
+      .then(res => setSubmitButtonText(res.statusText === "OK" ? "✔" : "x"));
   }
 
   return (
@@ -51,7 +50,7 @@ export default function Form() {
           <input type="text" id="note-input" onChange={handleNoteChange} placeholder="Notes" value={noteInputValue} />
         </div>
         <div className="card-footer">
-          <button className="button is-primary" onClick={handleClick}>Save Mood</button>
+          <button className="button is-primary" onClick={handleClick}>{submitButtonText}</button>
         </div>
       </div>
     </div >
